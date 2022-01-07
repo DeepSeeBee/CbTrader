@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="CbTrader.Gui.CHistogramSelectionGui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CbTrader.Gui"
+             mc:Ignorable="d" 
+             Width="25"
+            >
+    <Menu Background="Transparent">
+        <MenuItem Header="▼">
+            <MenuItem Header="Zoom in" ToolTip="Zoom into selection." Click="OnZoomButtonClicked">
+            </MenuItem>
+            <MenuItem Header="Zoom out" ToolTip="Show all data." Click="OnShowAllButtonClicked" >
+            </MenuItem>
+            <MenuItem Header="Request data" ToolTip="Request data for this period again." Click="OnRequestDataButtonClicked">
+            </MenuItem>
+            <MenuItem Header="Delete data" ToolTip="Remove all invisible data permanently." Click="OnTruncateButtonClick">
+            </MenuItem>
+        </MenuItem>
+    </Menu>
+</UserControl>

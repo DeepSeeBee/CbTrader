@@ -1,0 +1,75 @@
+﻿<Window x:Class="CbTrader.Gui.CSettingsDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CbTrader.Gui"
+             mc:Ignorable="d" 
+            SizeToContent="WidthAndHeight"
+        Title="InvestmentPlan"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+             >
+    <Grid>
+        <DockPanel>
+            <local:CDialogButtons TakeEffectIsEnabled="{Binding VmChanged}"
+                                  CloseDialogRequested="OnCloseDialogRequested" 
+                                  TakeEffectButtonClicked="OnTakeEffectButtonClicked"
+                                  OkButtonClicked="OnOkButtonClicked"
+                                  Margin="0,5,0,5" DockPanel.Dock="Bottom" 
+                                  >
+                
+            </local:CDialogButtons>
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <UniformGrid  Columns="2">
+                    <TextBlock Text="Data directory" />
+                    <TextBox Text="{Binding VmSettingsDirectory.FullName, Mode=OneWay}" IsReadOnly="True"
+                             ToolTip="The directory in which all data is stored"/>
+                    <TextBlock Text="CoinApi-Key" />
+                    <TextBox Text="{Binding VmCoinApiKey}" ToolTip="Your private CoinApi Key for requesting exchange rates from the internet." />
+
+                    <TextBlock Text="DataIntervall" />
+                    <ComboBox ToolTip="The interval of the requeted web data." SelectedValue="{Binding VmPeriodEnum}" ItemsSource="{Binding VmPeriodEnums}"/>
+                    <DockPanel>
+                        <Grid DockPanel.Dock="Right" Margin="0,0,2,0">
+                            <CheckBox ToolTip="Disable interpolation (Not suggested, because calculations may be wrong on non interpolatd data)." x:Name="InterpolateCheckBox" VerticalAlignment="Center" IsChecked="{Binding VmInterpolateIsEnabled}" />
+                        </Grid>
+                        <TextBlock DockPanel.Dock="Left" Text="Interpolate"/>
+                    </DockPanel>
+                    <TextBox ToolTip="The intervall of the processing data." Text="{Binding VmInterpolateSecondsText}" IsEnabled="{Binding IsChecked,ElementName=InterpolateCheckBox}"/>
+                    <TextBlock Text="Look back" />
+                    <TextBox Text="{Binding VmLookBackTimeSpanText}" ToolTip="The days to request past data." />
+                    <TextBlock Text="TradeCount"/>
+                    <TextBox Text="{Binding VmTradeCountText}" ToolTip="The number of trades which should be suggested."/>
+                    <TextBlock Text="Profit (Minimum)"/>
+                    <TextBox Text="{Binding VmProfitMinFaktorText}" ToolTip="The amount of profit you wish to make at a minumum." />
+                    <TextBlock Text="Profit (Target)"/>
+                    <TextBox Text="{Binding VmProfitTargetFaktorText}" ToolTip="The amount of profit you wish to make at least. (Relative to the delta of the min and max exchange rate.)" />
+                    <TextBlock Text="InvestAmount"/>
+                    <TextBox Text="{Binding VmInvestAmountText}" ToolTip="The amount to invest in cryptos."/>
+
+                </UniformGrid>
+                <UniformGrid Columns="1" Margin="5,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Click="OnOpenSettingsDirectoryClick">...</Button>
+                    </StackPanel>
+
+
+                    <TextBlock>
+                    <Hyperlink  Click="OnGetCoinApiKeyHyperlinkClicked">
+                        <TextBlock Text="Get" />
+                    </Hyperlink>
+                    </TextBlock>
+                    <TextBlock Text="" />
+                    <TextBlock>sec</TextBlock>
+                    <TextBlock Text="days"/>
+                    <TextBlock Text=""/>
+                    <TextBlock Text="?"/>
+                    <TextBlock Text="%"/>
+                    <TextBlock Text="{Binding VmInvestCurrency}"/>
+                    
+                </UniformGrid>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>

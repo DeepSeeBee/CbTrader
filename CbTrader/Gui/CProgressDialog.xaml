@@ -1,0 +1,22 @@
+﻿<Window x:Class="CbTrader.Gui.CProgressDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CbTrader.Gui"
+        mc:Ignorable="d"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Title="Process running...">
+    <Grid>
+        <DockPanel>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"  Orientation="Vertical">
+                <TextBlock x:Name="TitleTextBox" FontSize="20" Text="Wait..." TextAlignment="Center" Margin="5,5,5,5"/>
+                <ProgressBar x:Name="ProgressBar" IsIndeterminate="False" MinHeight="10" Minimum="0" Maximum="1"/>
+                <TextBlock x:Name="SubTitleTextBox" Text="Process is executing..." TextAlignment="Center" Margin="5,5,5,5"/>
+                <Button x:Name="CancelButton" Click="OnCancelButtonClick" Content="Cancel" HorizontalAlignment="Center" MinWidth="200" Margin="5"/>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>

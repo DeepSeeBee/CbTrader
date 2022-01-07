@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="CbTrader.Gui.CWeightTablesGui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CbTrader.Gui"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid >
+        <DockPanel >
+            <Grid DockPanel.Dock="Top" Height="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="25"/>
+                </Grid.ColumnDefinitions>
+                <Slider 
+                    Grid.Column="1"
+                        ToolTip="Number of edited table"
+                        Orientation="Horizontal" 
+                        Minimum="1" 
+                        Maximum="{Binding VmItemCount}"
+                        Value="{Binding VmItemIndex1b}"                          
+                        Grid.Row="0"
+                    SmallChange="1"
+                    LargeChange="1"
+                        >
+                </Slider>
+                <Menu Background="Transparent" Margin="-2,0,0,0">
+                    <MenuItem Header="▼" >
+                        <MenuItem Visibility="Collapsed" Header="Table Pitch">
+                            <TextBox ToolTip="Table Pitch" Grid.Row="1" Grid.Column="2" Text="{Binding VmItem.VmPitchText, Mode=TwoWay}" IsReadOnly="True"/>
+
+                        </MenuItem>
+                        <MenuItem Header="Add" Click="OnAddTable">
+                        </MenuItem>
+                        <MenuItem Header="Remove" Click="OnRemoveTable" IsEnabled="{Binding VmRemoveTableIsEnabled}">
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Save" IsEnabled="False">
+                        </MenuItem>
+                        <MenuItem Header="Load" IsEnabled="False">
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Reset" Click="OnLoadDefaults">
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+
+
+            </Grid>
+            
+            <DockPanel DockPanel.Dock="Bottom">
+
+                <Slider Orientation="Vertical" 
+                        DockPanel.Dock="Right"
+                        Margin="5,0,0,0"
+                Minimum="-1" 
+                Maximum="1"
+                Value="{Binding VmItem.VmPitch}" 
+                        IsEnabled="{Binding VmItem.VmPitchIsEditable}"
+                ToolTip="Table Pitch"
+                        LargeChange="0.1"
+                        SmallChange="0.00001"
+                    Grid.Row="1"
+                        Grid.Column="1"
+                >
+                </Slider>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                        <ItemsControl DockPanel.Dock="Left" ItemsSource="{Binding VmItem.VmItems}"  Margin="5" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel Height="20">
+                                <CheckBox ToolTip="Activate individual control point weight." Width="20" DockPanel.Dock="Left" IsChecked="{Binding VmActive}" IsEnabled="{Binding VmActiveIsEditable}"/>
+                                <Slider DockPanel.Dock="Left" IsEnabled="{Binding VmActive}"
+                                Minimum="0.00001"
+                                Maximum="1"
+                                        ToolTip="Control point weight"
+                                Value="{Binding VmInterpolateableWeight}"
+                                    SmallChange="0.00001"
+                                    LargeChange="0.1"
+                                >
+
+                                </Slider>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                    </ScrollViewer>
+                </Border>
+            </DockPanel>
+        </DockPanel>
+    </Grid>
+</UserControl>
