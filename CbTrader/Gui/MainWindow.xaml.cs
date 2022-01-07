@@ -81,5 +81,14 @@ namespace CbTrader.Gui
                 this.CbTrader.InvestmentExchangeRateHistogram = default;
             }).InvokeWithExceptionMessageBox();
         }
+
+        private void ResetLimitOrders(object sender, RoutedEventArgs e)
+        {
+            new Action(delegate ()
+            {
+                this.CbTrader.LimitOrdersVms.RefreshWeights();
+            }).InvokeWithExceptionMessageBox();
+
+        }
     }
 }

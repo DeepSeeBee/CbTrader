@@ -38,14 +38,22 @@
                  
                                             <GroupBox Header="Limit orders">
                                         <DockPanel>
-                                            <Expander IsExpanded="{Binding VmWeightTablesEditIsActive}" DockPanel.Dock="Left" ExpandDirection="Right" ToolTip="Characteristic curve of weights in relation to limit order weight."> 
+                                            <Expander IsExpanded="{Binding VmWeightTablesEditIsActive}" DockPanel.Dock="Left" ExpandDirection="Right" ToolTip="Characteristic curve of weights for limit order investment in relation to trend-line pitch."> 
                                                     <gui:CWeightTablesGui Width="300" DataContext="{Binding VmWeightTablesVm}" >
                                                     </gui:CWeightTablesGui>
                                             </Expander>
                                             <Border Width="1" BorderBrush="Black" BorderThickness="1" />
                                             <DockPanel DockPanel.Dock="Left"  >
                                                 <ContentControl DockPanel.Dock="Top" Height="20">
-                                                    <TextBlock Margin="20,0,0,0" Text="{Binding VmTrendLinePitchMessage}"/>
+                                                    <DockPanel>
+                                                        <Menu Width="20" Background="Transparent">
+                                                            <MenuItem Header="▼">
+                                                                <MenuItem Header="Reset" Click="ResetLimitOrders">
+                                                                </MenuItem>
+                                                            </MenuItem>
+                                                        </Menu>
+                                                        <TextBlock Margin="0,0,0,0" Text="{Binding VmTrendLinePitchMessage}"/>
+                                                    </DockPanel>
                                                 </ContentControl>
 
                                                 <DockPanel>

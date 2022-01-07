@@ -144,7 +144,10 @@ namespace CbTrader.InfoProviders.CoinApi
         {
             // Call 'GetSymbols'
             // Check the saved JSON.Result in folder directory: this.Settings.CoinApiSymbolsDirectoryInfo
+
+            //yield return new CInvertAndSymbol(false, "KRAKEN_SPOT_EUR_XRP");
             yield return new CInvertAndSymbol(true, "BITSTAMP_SPOT_XRP_EUR");
+            //yield return new CInvertAndSymbol(false, "BITSTAMP_SPOT_EUR_XRP");
 
 
 

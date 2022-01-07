@@ -353,10 +353,11 @@ namespace CbTrader
         private decimal GetAverage(IEnumerable<CExchangeRate> aRates)
             => aRates.Select(r => r.BuyAmount.Amount.Value).Average();
         private decimal? TrendLinePitchM;
-        internal decimal TrendLinePitch => CLazyLoad.Get(ref this.TrendLinePitchM, this.NewNeigung);
+        internal decimal TrendLinePitchReal => CLazyLoad.Get(ref this.TrendLinePitchM, this.NewNeigung);
+        internal decimal TrendLinePitchCoerced => Math.Min(1, Math.Max(-1, this.TrendLinePitchReal));
         internal static string TrendLinePitchTitle(decimal aTrendLinePitch, bool aIncludePropertyName = true)
             => (aIncludePropertyName ? "Trend-Line Pitch: " : string.Empty) + (aTrendLinePitch * 100).ToString("0.0") + "%";
-        public string VmTrendLinePitchTitle => TrendLinePitchTitle(this.TrendLinePitch);
+        public string VmTrendLinePitchTitle => TrendLinePitchTitle(this.TrendLinePitchReal);
         private decimal  NewNeigung()
         {
             var aFactor = 2;
@@ -835,7 +836,7 @@ namespace CbTrader
         public double VmWeight
         {
             get => this.Weight;
-            set => this.Weight = value;
+            set => this.WeightInternal = value;
         }
         internal readonly CBuyLimitOrderVms BuyLimitOrderVms;
         internal readonly CBuyLimitOrder Original;
@@ -1250,12 +1251,12 @@ namespace CbTrader
 
         internal decimal TrendLinePitch
         {
-            get => CLazyLoad.Get(ref this.TrendLinePitchM, () => this.InvestmentExchangeRateHistogram.TrendLinePitch);
+            get => CLazyLoad.Get(ref this.TrendLinePitchM, () => this.InvestmentExchangeRateHistogram.TrendLinePitchCoerced);
             set => this.TrendLinePitchNullable = value;
         }
         public double VmTrendLinePitch
         {
-            get => (double)(this.VmWeightTablesEditIsActive ? this.TrendLinePitch : this.InvestmentExchangeRateHistogram.TrendLinePitch);
+            get => (double)(this.VmWeightTablesEditIsActive ? this.TrendLinePitch : this.InvestmentExchangeRateHistogram.TrendLinePitchCoerced);
             set => this.TrendLinePitch = (decimal)value;
         }
         private void OnTrendLinePitchChanged()
